@@ -9,7 +9,7 @@
     "start": "node app.js"
   },
   "engines": {
-    "node": ">=16.0.0" // Specify the version of Node.js you want to use
+    "node": ">=16.0.0"
   },
   "repository": {
     "type": "git",
