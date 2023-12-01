@@ -10,7 +10,11 @@ import UserRoutes from "./users/routes.js";
 mongoose.connect("mongodb://127.0.0.1:27017/kanbas");
 import "dotenv/config";
 const app = express()
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  }));
 app.use(express.json());
 ModuleRoutes(app);
 CourseRoutes(app);
