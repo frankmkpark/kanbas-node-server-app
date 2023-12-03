@@ -1,4 +1,5 @@
 import "dotenv/config";
+import session from "express-session";
 import express from 'express'
 import Lab5 from "./lab5.js";
 import Hello from "./hello.js"
@@ -7,15 +8,40 @@ import ModuleRoutes from './modules/routes.js';
 import cors from "cors";
 import mongoose from "mongoose";
 import UserRoutes from "./users/routes.js";
-mongoose.connect("mongodb://127.0.0.1:27017/kanbas");
+// mongoose.connect("mongodb://127.0.0.1:27017/kanbas");
+// mongodb+srv://giuseppi:<password>@cluster0.eerap.mongodb.net/kanbas?retryWrites=true&w=majority
 import "dotenv/config";
-const app = express()
+const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || 'mongodb://127.0.0.1:27017/kanbas';
+mongoose.connect(CONNECTION_STRING);
+const app = express();
 app.use(cors({
-    origin: 'http://localhost:3000',
+    credentials: true,
+    origin: process.env.FRONTEND_URL,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
   }));
+
+  
 app.use(express.json());
+
+const sessionOptions = {
+  secret: "any string",
+  resave: false,
+  saveUninitialized: false,
+};
+app.use(
+  session(sessionOptions)
+);
+if (process.env.NODE_ENV !== "development") {
+  sessionOptions.proxy = true;
+  sessionOptions.cookie = {
+    sameSite: "none",
+    secure: true,
+  };
+}
+app.use(session(sessionOptions));
+
+
 ModuleRoutes(app);
 CourseRoutes(app);
 UserRoutes(app);
