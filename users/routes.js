@@ -60,7 +60,8 @@ function UserRoutes(app) {
   app.put("/api/users/:userId", updateUser);
   app.delete("/api/users/:userId", deleteUser);
   app.post("/api/users/signup", signup);
-  app.post("/api/users/signin", signin);
+  // app.post("/api/users/signin", signin);
+  app.post("/api/user/signin", signin);
   app.post("/api/users/signout", signout);
   app.post("/api/users/account", account);
 }
