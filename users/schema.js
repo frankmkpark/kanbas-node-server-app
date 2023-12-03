@@ -12,4 +12,7 @@ const userSchema = new mongoose.Schema({
       default: "USER" },
   },
   { collection: "users" });
+
+// const Kanbas_schema = 
 export default userSchema;
+// export default Kanbas_schema;
