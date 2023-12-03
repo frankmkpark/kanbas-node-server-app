@@ -14,7 +14,7 @@ import ModuleRoutes from './modules/routes.js';
 import UserRoutes from "./users/routes.js";
 
 // MongoDB connection setup
-const MongoStore = connectMongo(session);
+const MongoStore = connectMongo.create({ mongoUrl: CONNECTION_STRING });
 const CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
 
 // Fail fast if DB_CONNECTION_STRING is not set
@@ -43,7 +43,7 @@ app.use(express.json());
 
 // Session configuration for production
 const sessionOptions = {
-  secret: "your-session-secret", // Replace with a real secret
+  secret: "any string",
   resave: false,
   saveUninitialized: false,
   store: new MongoStore({ 
