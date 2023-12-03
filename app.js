@@ -14,7 +14,7 @@ import ModuleRoutes from './modules/routes.js';
 import UserRoutes from "./users/routes.js";
 
 // MongoDB connection setup
-const CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
+const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || 'mongodb://127.0.0.1:27017/kanbas';
 if (!CONNECTION_STRING) {
   console.error('MongoDB connection string is not set.');
   process.exit(1);
